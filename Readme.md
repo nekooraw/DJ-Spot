@@ -49,10 +49,12 @@ dj_spot_bot/
 ## Установка
 
 ```bash
-git clone https://github.com/username/dj_spot_bot.git
-cd dj_spot_bot
+git clone https://github.com/nekooraw/DJ-Spot.git
+cd DJ-Spot
 python -m venv venv
-source venv/bin/activate
+source venv/bin/activate - Linux, Mac
+.\venv\Scripts\activate.bat - Windows cmd
+.\venv\Scripts\Activate.ps1 - Windows PowerShell
 pip install -r requirements.txt
 ```
 
