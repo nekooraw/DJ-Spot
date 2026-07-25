@@ -28,9 +28,10 @@ def setup_logging():
 
 async def set_main_menu(bot: Bot):
     main_menu_commands = [
-        BotCommand(command="/start", description="🚀 Запустить бота / Главное меню"),
-        #BotCommand(command="/search", description="🎵 Найти песню в Spotify"),
-        BotCommand(command="/help", description="❓ Помощь и управление"),
+        BotCommand(command="start", description="🚀 Запустить бота / Главное меню"),
+        BotCommand(command="search", description="🎵 Найти песню в Spotify"),
+        BotCommand(command="help", description="❓ Помощь и управление"),
+        BotCommand(command="profile", description="👤 Профиль Spotify"),
     ]
     await bot.set_my_commands(main_menu_commands)
     logging.info("Меню команд успешно загружено в Telegram!")
