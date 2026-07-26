@@ -2,32 +2,34 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
 
-from bot.keyboards.inline import kb, url_spotify
+from bot.keyboards.inline import get_spotify_auth_keyboard
 
 router = Router()
 
+
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    # Здесь в потом будет проверка в Базе Данных:
-    # user_exists = назавниебд.db(message.from_user.id)
-    user_exists = False # Пока заглушка как будто пользователя еще нет
+    # Здесь потом будет проверка в Базе Данных:
+    # user_exists = название_бд.db(message.from_user.id)
+    user_exists = False  # Пока заглушка, как будто пользователя еще нет
 
     if user_exists:
         await message.answer(
             f"Привет, {message.from_user.full_name}! Рад видеть тебя в DJ-Spot.\n"
-            "Используй /help чтобы узнать бота лучшее"
+            "Используй /help, чтобы узнать бота лучше."
         )
     else:
         await message.answer(
             f"Привет, {message.from_user.full_name}! Добро пожаловать в DJ-Spot.\n\n"
             "Для работы с ботом необходимо привязать свой аккаунт Spotify. "
             "Нажми на кнопку ниже, чтобы пройти авторизацию:",
-            reply_markup=kb
+            reply_markup=get_spotify_auth_keyboard(message.from_user.id)
         )
+
 
 @router.message(Command("profile"))
 async def cmd_profile(message: Message):
-    #Все еще ждем бд все такое, замена на настояший
+    # Все еще ждем БД, пока заглушка
     profile_text = (
         "👤 **Ваш профиль Spotify:**\n\n"
         "• **Имя:** eco 1kd\n"
@@ -38,9 +40,11 @@ async def cmd_profile(message: Message):
     )
     await message.answer(profile_text, parse_mode="Markdown")
 
+
 @router.message(Command("search"))
 async def cmd_search(message: Message):
     await message.answer("Скоро...")
+
 
 @router.message(Command("help"))
 async def cmd_help(message: Message):
@@ -49,5 +53,6 @@ async def cmd_help(message: Message):
         "/start - Начать работу / Авторизация\n"
         "/profile - Посмотреть свой профиль\n"
         "/search - Поиск треков и артистов\n"
-        "/help - Справка"
+        "/help - Справка",
+        parse_mode="Markdown"
     )
