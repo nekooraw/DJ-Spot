@@ -6,6 +6,9 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import Message, BotCommand
 
 from bot.handlers.common import router as common_routers
+from database.db_connection import init_db
+
+
 # from bot.handlers.music import router as music_router
 
 def setup_logging():
@@ -40,6 +43,9 @@ async def set_main_menu(bot: Bot):
 async def main():
     setup_logging()
     logging.info("Инилизация бота DJ-Spot...")
+
+    await init_db()
+    logging.info("База данных успешно инициализирована!")
 
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
