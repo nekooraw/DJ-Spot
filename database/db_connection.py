@@ -27,6 +27,10 @@ class User(Base):
 
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.utcnow)
 
+    access_token: Mapped[str | None] = mapped_column(String, nullable=True, default=None)
+    refresh_token: Mapped[str | None] = mapped_column(String, nullable=True, default=None)
+    expires_at: Mapped[int | None] = mapped_column(Integer, nullable=True, default=None)
+
 
 async def init_db():
     async with engine.begin() as conn:
