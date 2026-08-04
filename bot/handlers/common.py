@@ -1,6 +1,6 @@
 from aiogram import Router
+from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
-from aiogram.filters import CommandStart, Command
 
 from bot.keyboards.inline import get_spotify_auth_keyboard
 
@@ -23,7 +23,7 @@ async def cmd_start(message: Message):
             f"Привет, {message.from_user.full_name}! Добро пожаловать в DJ-Spot.\n\n"
             "Для работы с ботом необходимо привязать свой аккаунт Spotify. "
             "Нажми на кнопку ниже, чтобы пройти авторизацию:",
-            reply_markup=get_spotify_auth_keyboard(message.from_user.id)
+            reply_markup=get_spotify_auth_keyboard(message.from_user.id),
         )
 
 
@@ -54,5 +54,5 @@ async def cmd_help(message: Message):
         "/profile - Посмотреть свой профиль\n"
         "/search - Поиск треков и артистов\n"
         "/help - Справка",
-        parse_mode="Markdown"
+        parse_mode="Markdown",
     )

@@ -3,7 +3,7 @@ import logging
 
 import colorlog
 from aiogram import Bot, Dispatcher
-from aiogram.types import BotCommand, Message
+from aiogram.types import BotCommand
 
 from bot.handlers.common import router as common_routers
 from config import BOT_TOKEN
@@ -11,25 +11,29 @@ from database.db_connection import init_db
 
 # from bot.handlers.music import router as music_router
 
+
 def setup_logging():
     handler = colorlog.StreamHandler()
-    handler.setFormatter(colorlog.ColoredFormatter(
-        '%(log_color)s[%(asctime)s] [%(levelname)s] %(message)s',
-        datefmt='%H:%M:%S',
-        log_colors={
-            'DEBUG':    'cyan',
-            'INFO':     'green',
-            'WARNING':  'yellow',
-            'ERROR':    'red',
-            'CRITICAL': 'bold_red',
-        }
-    ))
+    handler.setFormatter(
+        colorlog.ColoredFormatter(
+            "%(log_color)s[%(asctime)s] [%(levelname)s] %(message)s",
+            datefmt="%H:%M:%S",
+            log_colors={
+                "DEBUG": "cyan",
+                "INFO": "green",
+                "WARNING": "yellow",
+                "ERROR": "red",
+                "CRITICAL": "bold_red",
+            },
+        )
+    )
 
     logger = logging.getLogger()
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 
     return logger
+
 
 async def set_main_menu(bot: Bot):
     main_menu_commands = [
@@ -39,6 +43,7 @@ async def set_main_menu(bot: Bot):
         BotCommand(command="profile", description="👤 Профиль Spotify"),
     ]
     await bot.set_my_commands(main_menu_commands)
+
 
 async def main():
     logger = setup_logging()
@@ -62,6 +67,7 @@ async def main():
         await dp.start_polling(bot)
     finally:
         await bot.session.close()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -1,7 +1,8 @@
 import datetime
-from sqlalchemy import BigInteger, String, Integer, DateTime
+
+from sqlalchemy import BigInteger, DateTime, Integer, String
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 DATABASE_URL = "sqlite+aiosqlite:///dj_spot.db"
 engine = create_async_engine(DATABASE_URL, echo=False)
@@ -13,8 +14,7 @@ class Base(DeclarativeBase):
 
 
 class User(Base):
-    __tablename__ = 'users'
-
+    __tablename__ = "users"
 
     telegram_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
     spotify_id: Mapped[str | None] = mapped_column(String, nullable=True, default=None)
