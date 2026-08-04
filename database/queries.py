@@ -8,12 +8,14 @@ async def save_spotify_tokens(telegram_id: int, access_token: str, refresh_token
         result = await session.execute(select(User).where(User.telegram_id == telegram_id))
         user = result.scalar_one_or_none()
 
-        if user:
-            user.access_token = access_token
-            user.refresh_token = refresh_token
-            user.expires_at = int(time.time()) + expires_in
+        if not user:
+            user = User(telegram_id=telegram_id)
+            session.add(user)
 
-            await session.commit()
-            return True
+        user.access_token = access_token
+        user.refresh_token = refresh_token
+        user.expires_at = int(time.time()) + expires_in
 
-        return False
+        await session.commit()
+        return True
+
