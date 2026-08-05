@@ -25,7 +25,7 @@ class User(Base):
     email: Mapped[str | None] = mapped_column(String, nullable=True, default=None)  # Электронная почта
     product: Mapped[str | None] = mapped_column(String, nullable=True, default=None)  # Тип подписки (premium/free)
 
-    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.utcnow)
+    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=lambda: datetime.datetime.now(datetime.timezone.utc))
 
     access_token: Mapped[str | None] = mapped_column(String, nullable=True, default=None)
     refresh_token: Mapped[str | None] = mapped_column(String, nullable=True, default=None)
