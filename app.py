@@ -42,75 +42,78 @@ async def spotify_callback(code: str = Query(...), state: str = Query(...)):
     <html>
     <head>
         <meta charset="utf-8">
-        <title>Авторизация DJ-Spot успешно завершена</title>
+        <title>Успешно | DJ-Spot</title>
         <style>
             body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #121212;
-                color: #FFFFFF;
+                font-family: 'Segoe UI', system-ui, sans-serif;
+                background-color: #0b0b0e;
+                color: #f3f4f6;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                height: 100vh;
+                min-height: 100vh;
                 margin: 0;
             }
             .card {
-                background-color: #181818;
+                background: #13131a;
+                border: 1px solid #22222c;
                 padding: 40px;
-                border-radius: 12px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+                border-radius: 24px;
                 text-align: center;
-                max-width: 450px;
+                max-width: 400px;
+                width: 100%;
             }
             h1 {
                 color: #1DB954;
-                margin-bottom: 15px;
-                font-size: 36px;
+                font-size: 28px;
+                font-weight: 700;
+                margin-bottom: 12px;
+                letter-spacing: -0.5px;
             }
             p {
-                color: #E5E5E5;
-                font-size: 16px;
-                line-height: 1.5;
-                margin-bottom: 20px;
+                color: #9ca3af;
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 28px;
             }
             .anime-img {
-                width: 100%;
-                max-width: 280px;
-                border-radius: 12px;
-                margin-bottom: 25px;
-                box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                margin-bottom: 28px;
+                object-fit: cover;
+                border: 2px solid #22222c;
             }
             .btn {
-                display: inline-block;
-                padding: 12px 24px;
-                background-color: #1DB954;
-                color: white;
+                display: block;
+                width: 100%;
+                padding: 14px;
+                background-color: #1f1f2e;
+                color: #ffffff;
                 text-decoration: none;
-                border-radius: 30px;
-                font-weight: bold;
-                transition: background-color 0.2s;
+                border-radius: 12px;
+                font-weight: 600;
+                font-size: 14px;
+                border: 1px solid #333344;
+                transition: all 0.2s ease;
             }
             .btn:hover {
-                background-color: #1ed760;
+                background-color: #2b2b3d;
+                border-color: #1DB954;
             }
         </style>
     </head>
     <body>
         <div class="card">
-            <h1>Успешно!</h1>
-            <p>Ваш аккаунт Spotify успешно привязан к боту <b>DJ-Spot</b>.</p>
-            
-            <img class="anime-img" src="/static/yui_happy.gif" alt="Yui Hirasawa Happy">
-            
-            <p>Теперь вы можете закрыть эту вкладку браузера и вернуться в Telegram.</p>
-            
-            <a href="https://t.me/DJ_Spot_music_bot" class="btn">Вернуться в Telegram</a>
+            <h1>Успешно</h1>
+            <p>Аккаунт Spotify привязан к боту <b>DJ-Spot</b>.</p>
+            <img class="anime-img" src="/static/yui_happy.gif" alt="Success">
+            <p>Теперь вы можете закрыть эту вкладку и вернуться в мессенджер.</p>
+            <a href="https://t.me" class="btn">Открыть бота</a>
         </div>
     </body>
     </html>
     """
-
     return HTMLResponse(content=html_content, status_code=status.HTTP_200_OK)
 
 
@@ -121,85 +124,72 @@ async def custom_404_handler(request: Request, __):
     <html>
     <head>
         <meta charset="utf-8">
-        <title>Страница не найдена | DJ-Spot</title>
+        <title>404 | DJ-Spot</title>
         <style>
             body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #121212;
-                color: #FFFFFF;
+                font-family: 'Segoe UI', system-ui, sans-serif;
+                background-color: #0b0b0e;
+                color: #f3f4f6;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                height: 100vh;
+                min-height: 100vh;
                 margin: 0;
             }
             .card {
-                background-color: #181818;
+                background: #13131a;
+                border: 1px solid #2c1a1a;
                 padding: 40px;
-                border-radius: 12px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+                border-radius: 24px;
                 text-align: center;
-                max-width: 450px;
+                max-width: 400px;
+                width: 100%;
             }
             h1 {
-                color: #FF5555;
-                font-size: 64px;
-                margin: 0 0 10px 0;
+                color: #ff4f4f;
+                font-size: 56px;
+                font-weight: 800;
+                margin-bottom: 4px;
             }
             p {
-                color: #E5E5E5;
-                font-size: 18px;
-                line-height: 1.5;
-                margin-bottom: 20px;
+                color: #9ca3af;
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 28px;
             }
             .anime-img {
-                width: 100%;
-                max-width: 280px;
-                border-radius: 12px;
-                margin-bottom: 20px;
-                box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-            }
-            .support-link {
-                color: #1DB954;
-                text-decoration: none;
-                font-weight: bold;
-                transition: color 0.2s;
-            }
-            .support-link:hover {
-                color: #1ed760;
-                text-decoration: underline;
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                margin-bottom: 28px;
+                object-fit: cover;
+                border: 2px solid #22222c;
             }
             .btn {
-                display: inline-block;
-                padding: 12px 24px;
-                background-color: #1DB954;
-                color: white;
+                display: block;
+                width: 100%;
+                padding: 14px;
+                background-color: #1f1f2e;
+                color: #ffffff;
                 text-decoration: none;
-                border-radius: 30px;
-                font-weight: bold;
-                transition: background-color 0.2s;
+                border-radius: 12px;
+                font-weight: 600;
+                font-size: 14px;
+                border: 1px solid #333344;
+                transition: all 0.2s ease;
             }
             .btn:hover {
-                background-color: #1ed760;
+                background-color: #2b2b3d;
+                border-color: #ff4a4a;
             }
         </style>
     </head>
     <body>
         <div class="card">
             <h1>404</h1>
-            <p>Упс! Кажется, Юи запуталась в проводах и потеряла эту страницу...</p>
-            
-            <img class="anime-img" src="/static/yui_cry.png" alt="Yui Hirasawa Crying">
-            
-            <div style="margin-bottom: 25px; font-size: 14px; color: #B3B3B3;">
-                🛠 Проблемы? Написать: 
-                <a href="https://t.me/nekooraw" class="support-link" style="display:inline; margin:0;">Админ 1</a> 
-                | 
-                <a href="https://t.me/eco1kd" class="support-link" style="display:inline; margin:0;">Админ 2</a>
-            </div>
-            
-            <a href="https://t.me/DJ_Spot_music_bot" class="btn">Вернуться к Боту</a>
+            <p>Страница не найдена. Юи запуталась в проводах...</p>
+            <img class="anime-img" src="/static/yui_cry.png" alt="Error">
+            <a href="https://t.me" class="btn">Вернуться к Боту</a>
         </div>
     </body>
     </html>
