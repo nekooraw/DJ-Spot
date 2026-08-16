@@ -109,7 +109,7 @@ async def spotify_callback(code: str = Query(...), state: str = Query(...)):
             <p>Аккаунт Spotify привязан к боту <b>DJ-Spot</b>.</p>
             <img class="anime-img" src="/static/yui_happy.gif" alt="Success">
             <p>Теперь вы можете закрыть эту вкладку и вернуться в мессенджер.</p>
-            <a href="https://t.me" class="btn">Открыть бота</a>
+            <a href="https://t.me/DJ_Spot_music_bot" class="btn">Открыть бота</a>
         </div>
     </body>
     </html>
@@ -189,7 +189,7 @@ async def custom_404_handler(request: Request, __):
             <h1>404</h1>
             <p>Страница не найдена. Юи запуталась в проводах...</p>
             <img class="anime-img" src="/static/yui_cry.png" alt="Error">
-            <a href="https://t.me" class="btn">Вернуться к Боту</a>
+            <a href="https://t.me/DJ_Spot_music_bot" class="btn">Вернуться к Боту</a>
         </div>
     </body>
     </html>
