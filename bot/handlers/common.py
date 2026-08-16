@@ -33,7 +33,7 @@ async def cmd_start(message: Message):
 
 @router.message(Command("profile"))
 async def cmd_profile(message: Message):
-    telegram_id = message.for_user.id
+    telegram_id = message.from_user.id
 
     spotify = SpotifyClient(telegram_id=telegram_id)
 
@@ -60,11 +60,6 @@ async def cmd_profile(message: Message):
         await message.answer("❌ Вы не авторизованы или сессия истекла. Используйте /start для привязки аккаунта.")
     except SpotifyClientError as e:
         await message.answer(f"❌ Не удалось загрузить профиль: {e}")
-
-
-@router.message(Command("search"))
-async def cmd_search(message: Message):
-    await message.answer("Скоро...")
 
 
 @router.message(Command("help"))
