@@ -2,14 +2,14 @@ import asyncio
 import logging
 
 import colorlog
+import httpx
 from aiogram import Bot, Dispatcher
 from aiogram.types import BotCommand
 
 from bot.handlers.common import router as common_routers
+from bot.handlers.music import router as music_router
 from config import BOT_TOKEN
 from database.db_connection import init_db
-
-# from bot.handlers.music import router as music_router
 
 
 def setup_logging():
@@ -57,7 +57,11 @@ async def main():
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
 
+    http_client = httpx.AsyncClient()
+    dp["http_client"] = http_client
+
     dp.include_router(common_routers)
+    dp.include_router(music_router)
 
     await set_main_menu(bot)
 
@@ -67,6 +71,8 @@ async def main():
         await dp.start_polling(bot)
     finally:
         await bot.session.close()
+        await http_client.aclose()
+        logger.info("Все сессии закрыты. Бот остановлен")
 
 
 if __name__ == "__main__":
