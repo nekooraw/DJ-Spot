@@ -4,7 +4,7 @@ import time
 import httpx
 
 from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI
-from database.db_connection import async_session, User
+from database.db_connection import User, async_session
 from database.queries import save_spotify_tokens
 
 
@@ -21,7 +21,6 @@ API_URL = "https://api.spotify.com/v1"
 
 
 class SpotifyClient:
-
     def __init__(self, telegram_id: int):
         self.telegram_id = telegram_id
         self._access_token: str | None = None
@@ -115,9 +114,7 @@ class SpotifyClient:
         headers = {"Authorization": f"Bearer {token}"}
 
         async with httpx.AsyncClient() as client:
-            resp = await client.request(
-                method, f"{API_URL}{path}", params=params, json=json, headers=headers
-            )
+            resp = await client.request(method, f"{API_URL}{path}", params=params, json=json, headers=headers)
 
         if resp.status_code == 401:
             self._access_token = None
@@ -157,28 +154,32 @@ class SpotifyClient:
 
     async def search_tracks(self, query: str, limit: int = 10, offset: int = 0):
         data = await self._request(
-            "GET", "/search",
+            "GET",
+            "/search",
             params={"q": query, "type": "track", "limit": limit, "offset": offset},
         )
         return data.get("tracks", {}).get("items", [])
 
     async def search_artists(self, query: str, limit: int = 10):
         data = await self._request(
-            "GET", "/search",
+            "GET",
+            "/search",
             params={"q": query, "type": "artist", "limit": limit},
         )
         return data.get("artists", {}).get("items", [])
 
     async def search_albums(self, query: str, limit: int = 10):
         data = await self._request(
-            "GET", "/search",
+            "GET",
+            "/search",
             params={"q": query, "type": "album", "limit": limit},
         )
         return data.get("albums", {}).get("items", [])
 
     async def search_playlists(self, query: str, limit: int = 10):
         data = await self._request(
-            "GET", "/search",
+            "GET",
+            "/search",
             params={"q": query, "type": "playlist", "limit": limit},
         )
         return data.get("playlists", {}).get("items", [])
@@ -190,7 +191,8 @@ class SpotifyClient:
 
     async def get_top_tracks(self, limit: int = 10, time_range: str = "medium_term"):
         data = await self._request(
-            "GET", "/me/top/tracks",
+            "GET",
+            "/me/top/tracks",
             params={"limit": limit, "time_range": time_range},
         )
         return data.get("items", [])
@@ -205,20 +207,23 @@ class SpotifyClient:
 
     async def get_playlist_tracks(self, playlist_id: str, limit: int = 50, offset: int = 0):
         data = await self._request(
-            "GET", f"/playlists/{playlist_id}/tracks",
+            "GET",
+            f"/playlists/{playlist_id}/tracks",
             params={"limit": limit, "offset": offset},
         )
         return data.get("items", [])
 
     async def create_playlist(self, user_id: str, name: str, description: str = "", public: bool = True) -> dict:
         return await self._request(
-            "POST", f"/users/{user_id}/playlists",
+            "POST",
+            f"/users/{user_id}/playlists",
             json={"name": name, "description": description, "public": public},
         )
 
     async def add_tracks_to_playlist(self, playlist_id: str, track_ids: list[str]) -> dict:
         return await self._request(
-            "POST", f"/playlists/{playlist_id}/tracks",
+            "POST",
+            f"/playlists/{playlist_id}/tracks",
             json={"uris": [f"spotify:track:{tid}" for tid in track_ids]},
         )
 
